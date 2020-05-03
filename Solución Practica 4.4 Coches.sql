@@ -1,44 +1,51 @@
-CREATE TABLE coches(
-idmatricula VARCHAR2(10)PRIMARY KEY,
-marca VARCHAR2(20)NOT NULL,
-modelo VARCHAR2(20) NOT NULL,-- 8. marca y modelo nunca se dejarán en blanco.
-color CHAR(8), -- 1. El color con el nombre más largo es "amarillo"
-/*pvp NUMBER(7,2) He tenido que borrar la tabla para corregir*/
-pvp 
-);
 CREATE TABLE clientes(
-NIF VARCHAR(9), -- 
-nombre VARCHAR2(20),
-dir VARCHAR2(30),
-ciudad CHAR(25),
-tfno NUMBER(9)
-);
-CREATE TABLE operaciones(
-codop VARCHAR2(4),
-dscrp varchar2(150),
-hrmon NUMBER (1) /*tiempo de montaje en horas.*/
-);
-CREATE TABLE materiales(
-codmat VARCHAR2(3), 
-nombre VARCHAR2(20),
-cantidad NUMBER(2)
-);
+cod number PRIMARY KEY,
+nif varchar2(9) unique,
+nombre char(20),
+dir  varchar2(30),
+ciudad char(25),
+tfno number(9));
 
-CREATE TABLE piezasxoperacion(
-codmat NUMBER(4)FOREIGN KEY,
-codopr NUMBER(4)FOREIGN KEY,
-cantidad VARCHAR2(2)
-); 
+CREATE TABLE coches(
+matricula varchar2(10) PRIMARY KEY,
+marca char(20) not null,
+modelo varchar2(20) not null,
+color char(8),
+PVP number(7,2));
+
+ALTER TABLE coches add (codigocliente number);
+
+ALTER TABLE coches add (constraint fk_codigocliente_Clientes foreign key
+(codigocliente) references clientes (cod));
 
 CREATE TABLE revisiones(
-codrev NUMBER(4) PRIMARY KEY,
-fchrev DATE,
-matrcar VARCHAR2(10),
+cod number PRIMARY KEY,
+fecharev date,
+matriculacoche varchar2(10),
+constraint fk_matriculacoche_coches foreign key(matriculacoche) references coches(matricula));
+
+CREATE TABLE Operaciones(
+cod number PRIMARY KEY,
+descripción VARCHAR2,
+horasMO number(1)
+CONSTRAINT CK_HorasMO check (HorasMO BETWEEN 0 and 4)
 );
 
-CREATE TABLE constran(
-codopr NUMBER PRIMARY KEY,
-codrevn NUMBER, 
-CONSTRAINT fk_codopr FOREIGN KEY(codop)REFERENCES operaciones(codop),
-COSNTRAINT fk_codrevn FOREIGN KEY(codrev)REFERENCES revisiones(codrev)
+CREATE TABLE PiezasPorOperacion(
+CodMaterial number foreign KEY,
+CodOperacion number foreign key,
+Cantidad varchar2 default '1',
+);
+
+CREATE TABLE materiales (
+cod number primary key,
+nombre varchar2,
+precio varchar2 between 10000 and 60000
+);
+
+create table constan (
+Codigooperacion number primary key,
+Codigorevision number,
+constraint fk_codigooperacion foreign key (Codigooperacion) references Operaciones(cod),
+constraint fk_codigorevision foreign key (Codigorevision) references revisiones(Cod)
 );
