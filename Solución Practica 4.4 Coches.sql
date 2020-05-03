@@ -1,3 +1,6 @@
+DROP TABLE CLIENTES; 
+DROP TABLE COCHES;
+
 CREATE TABLE clientes(
 cod number PRIMARY KEY,
 nif varchar2(9) unique,
