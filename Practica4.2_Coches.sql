@@ -2,12 +2,11 @@ CREATE TABLE coches(
 idmatricula VARCHAR2(10)PRIMARY KEY,
 marca VARCHAR2(20)NOT NULL,
 modelo VARCHAR2(20) NOT NULL,-- 8. marca y modelo nunca se dejarán en blanco.
-color CHAR(8), -- 1. El color con el nombre más largo es "amarillo"
-/*pvp NUMBER(7,2) He tenido que borrar la tabla para corregir*/
-pvp 
+color CHAR(8), -- El color con el nombre más largo es "amarillo"
+pvp NUMBER(7,2)
 );
 CREATE TABLE clientes(
-NIF VARCHAR(9), -- 
+NIF VARCHAR(9) PRIMARY KEY,
 nombre VARCHAR2(20),
 dir VARCHAR2(30),
 ciudad CHAR(25),
@@ -25,8 +24,8 @@ cantidad NUMBER(2)
 );
 
 CREATE TABLE piezasxoperacion(
-codmat NUMBER(4)FOREIGN KEY,
-codopr NUMBER(4)FOREIGN KEY,
+codmat NUMBER(4) FOREIGN KEY,
+codopr NUMBER(4) FOREIGN KEY,
 cantidad VARCHAR2(2)
 ); 
 
