@@ -16,5 +16,4 @@ números, un guión y una o dos letras. (Ejs: 2345DFV, M-2332-NV,SE-3445-DF)
 7. La cantidad de Piezas por Operación por defecto es 1.
 8. La marca y modelo del coche no pueden dejarse en blanco.
 9. Los teléfonos empiezan por 6, 7, 8 o 9.
-
 10.El precio de un coche está entre 10000 y 60000.
