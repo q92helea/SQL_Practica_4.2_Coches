@@ -2,7 +2,7 @@
 Ejercicio 1
 Sobre la solución del problema 4 del boletín 1 de ERD:
 
-![Alt text](https://github.com/q92helea/SQL_Practica_4.2_Coches/blob/master/Prctica%204.2%20Coches.jpg"Módelo Relacional de Concesionario")
+![Alt text](https://github.com/q92helea/SQL_Practica_4.2_Coches/blob/master/Prctica%204.2%20Coches.jpg "Módelo Relacional de Concesionario")
 Crear las tablas procurando que las columnas tengan el tipo y tamaño adecuados y con
 las siguientes restricciones:
 1. Color es verde, rojo, amarillo o blanco.
