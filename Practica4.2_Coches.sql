@@ -6,9 +6,9 @@ ciudad CHAR(25),
 tfno NUMBER(9)
 );
 /*4. Los DNI tienen 9 caracteres, siendo el �ltimo una letra.*/
- ALTER TABLE clientes ADD (CONSTRAINT CHK_nif CHECK (REGEXP_LIKE(nif, '^[0-9]{8}[aA-zZ]$'))
+ ALTER TABLE clientes ADD (CONSTRAINT CHK_nif CHECK (REGEXP_LIKE(nif, '^[0-9]{8}[aA-zZ]$'));
 /*9. los tel�fonos empiezan por 6, 7, 8 o 9.*/
-ALTER TABLE clientes add   ( constraint ck_tfno_clientes CHECK Telef like '6%''7%''8%''9%')
+ALTER TABLE clientes add   ( constraint ck_tfno_clientes CHECK Telef like '6%''7%''8%''9%');
 
 CREATE TABLE coches(
 id_matrc VARCHAR2(10)PRIMARY KEY,
@@ -21,8 +21,8 @@ pvp NUMBER(7,2)
 
 ALTER TABLE coches ADD(id_cli VARCHAR(9));
 
-ALTER TABLE coches ADD(CONSTRAINT fk_id_cli_clientes
-FOREIGN KEY(id_cli) REFERENCES clientes (nif));
+ALTER TABLE coches ADD(
+ CONSTRAINT fk_id_cli_clientes FOREIGN KEY(id_cli) REFERENCES clientes (nif));
 /*1.Color es verde, rojo, amarillo o blanco.*/
 ALTER TABLE coches ADD (
     CONSTRAINT chk_color_coches CHECK (color IN ('rojo','verde','amarillo','blanco'))
@@ -46,7 +46,8 @@ dscrp VARCHAR2(150),
 hr_mon NUMBER (1)
 );
 
-ALTER TABLE operaciones ADD(CONSTRAINT chk_hr_mon_operaciones CHECK (hr_mon BETWEEN 0 AND 4));
+ALTER TABLE operaciones ADD(
+ CONSTRAINT chk_hr_mon_operaciones CHECK (hr_mon BETWEEN 0 AND 4));
 
 CREATE TABLE materiales (
 id_mat VARCHAR2(3)PRIMARY KEY, 
@@ -68,11 +69,13 @@ fchrev DATE,
 matr_car VARCHAR2(10),
 CONSTRAINT fk_mtrc_car_coches FOREIGN KEY(matr_car) REFERENCES coches(id_matrc)
 );
+                                                                 
 /*3. Las revisiones se hacen de 8 de la ma�ana a 5 de la tarde.*/
 
 ALTER TABLE Revisiones ADD ( 
     CONSTRAINT ck_fecharevision CHECK ( to_char(fecharevision, 'HH24:mm:ss') > '08:00:00' AND to_char(fecharevision, 'HH24:mm:ss') < '17:00:00' )
     );
+                                                                 
 /*6. Todas las claves primarias, ajenas y candidatas.*/
 
 CREATE TABLE constande(
