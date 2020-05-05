@@ -1,21 +1,21 @@
 CREATE TABLE clientes(
-/*4. Los DNI tienen 9 caractere, siendo el último una letra.*/
 nif VARCHAR(9) PRIMARY KEY,
 nombre VARCHAR2(20),
 dir VARCHAR2(30),
 ciudad CHAR(25),
-/*9. los teléfonos empiezan por 6, 7, 8 o 9.*/
 tfno NUMBER(9)
 );
+/*4. Los DNI tienen 9 caracteres, siendo el ï¿½ltimo una letra.*/
+ ALTER TABLE clientes ADD (CONSTRAINT CHK_nif CHECK (REGEXP_LIKE(nif, '^[0-9]{8}[aA-zZ]$'))
+/*9. los telï¿½fonos empiezan por 6, 7, 8 o 9.*/
+ALTER TABLE clientes add   ( constraint ck_tfno_clientes CHECK Telef like '6%''7%''8%''9%')
 
 CREATE TABLE coches(
-/*2.Matricula es cuatro números y tres letras o bien una o dos letras, un guión, cuatro
-números, un guión y una o dos letras. (Ejs: 2345DFV, M-2332-NV,SE-3445-DF)*/
 id_matrc VARCHAR2(10)PRIMARY KEY,
--- 8. marca y modelo nunca se dejarán en blanco.
+-- 8. marca y modelo nunca se dejarï¿½n en blanco.
 marca VARCHAR2(20)NOT NULL,
 modelo VARCHAR2(20) NOT NULL,
-color CHAR(8), -- El color con el nombre más largo es "amarillo", pero no hay restricción.
+color CHAR(8), -- El color con el nombre mï¿½s largo es "amarillo", pero no hay restricciï¿½n.
 pvp NUMBER(7,2)
 );
 
@@ -23,18 +23,26 @@ ALTER TABLE coches ADD(id_cli VARCHAR(9));
 
 ALTER TABLE coches ADD(CONSTRAINT fk_id_cli_clientes
 FOREIGN KEY(id_cli) REFERENCES clientes (nif));
-
 /*1.Color es verde, rojo, amarillo o blanco.*/
-ALTER TABLE coches ADD(CONSTRAINT chk_color_car CHECK (color IN ('rojo','verde','amarillo','blanco')) 
+ALTER TABLE coches ADD (
+    CONSTRAINT chk_color_coches CHECK (color IN ('rojo','verde','amarillo','blanco'))
 );
-10.El precio de un coche está entre 10000 y 60000.
-ALTER TABLE coches ADD(CONSTRAINT chk_pvp_coches CHECK (pvp BETWEEN 10000 AND 60000)
+/*2.Matricula es cuatro nï¿½meros y tres letras o bien una o dos letras, un guiï¿½n, cuatro
+nï¿½meros, un guiï¿½n y una o dos letras. (Ejs: 2345DFV, M-2332-NV,SE-3445-DF)*/
+ALTER TABLE coches ADD (
+    CONSTRAINT CHK_matricula CHECK (REGEXP_LIKE(matricula, '^[0-9]{4}[aA-zZ]{3}$')
+                     OR REGEXP_LIKE(matricula, '^[aA-zZ]{1-2}-[0-9]{4}-[aA-zZ]{1-2}$')
+);
+
+/*10.El precio de un coche estï¿½ entre 10000 y 60000.*/
+ALTER TABLE coches ADD(
+    CONSTRAINT chk_pvp_coches CHECK (pvp BETWEEN 10000 AND 60000)
 );
 
 CREATE TABLE operaciones(
 id_op VARCHAR2(4)PRIMARY KEY,
 dscrp VARCHAR2(150),
-/* 5. Las Horas MO de una operación nunca pasan de 4*/
+/* 5. Las Horas MO de una operaciï¿½n nunca pasan de 4*/
 hr_mon NUMBER (1)
 );
 
@@ -48,20 +56,23 @@ cantidad NUMBER(2));
 CREATE TABLE piezasxoperacion (
 id_piezs NUMBER(4) PRIMARY KEY,
 id_opr NUMBER(4),
-cantidad NUMBER(2)SET DEFAULT '1',
+cantidad NUMBER(2)SET DEFAULT '1'
 CONSTRAINT fk_id_mat FOREIGN KEY (id_piezs)REFERENCES materiales (id_mat))
 CONSTRAINT fk_id_opr FOREIGN KEY (id_opr)REFERENCES operaciones (id_op)));
 
 ALTER TABLE piezasxoperacion CHECK (cantidad>=1);
 
 CREATE TABLE revisiones(
-/*3. Las revisiones se hacen de 8 de la mañana a 5 de la tarde.*/
 id_rev NUMBER(4) PRIMARY KEY,
 fchrev DATE,
 matr_car VARCHAR2(10),
 CONSTRAINT fk_mtrc_car_coches FOREIGN KEY(matr_car) REFERENCES coches(id_matrc)
 );
+/*3. Las revisiones se hacen de 8 de la maï¿½ana a 5 de la tarde.*/
 
+ALTER TABLE Revisiones ADD ( 
+    CONSTRAINT ck_fecharevision CHECK ( to_char(fecharevision, 'HH24:mm:ss') > '08:00:00' AND to_char(fecharevision, 'HH24:mm:ss') < '17:00:00' )
+    );
 /*6. Todas las claves primarias, ajenas y candidatas.*/
 
 CREATE TABLE constande(
