@@ -55,8 +55,8 @@ cantidad NUMBER(2)
 );
 
 CREATE TABLE piezasxoperacion (
-id_piezs NUMBER(4) PRIMARY KEY,
-id_opr NUMBER(4),
+id_piezs VARCHAR2(4) PRIMARY KEY,
+id_opr VARCHAR2(4),
 cantidad VARCHAR2(2)DEFAULT '1',
 CONSTRAINT fk_id_mat FOREIGN KEY (id_piezs)REFERENCES materiales (id_mat)
 CONSTRAINT fk_id_opr FOREIGN KEY (id_opr)REFERENCES operaciones (id_op)
