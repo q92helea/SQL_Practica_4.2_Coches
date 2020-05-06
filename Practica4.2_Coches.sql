@@ -78,8 +78,8 @@ ALTER TABLE Revisiones ADD (
 /*6. Todas las claves primarias, ajenas y candidatas.*/
 
 CREATE TABLE constande(
-id_opr VARCHAR2(10) PRIMARY KEY,
+id_oper VARCHAR2(10) PRIMARY KEY,
 id_revn NUMBER(4), 
-CONSTRAINT fk_id_opr FOREIGN KEY(id_opr)REFERENCES operaciones(id_op),
+CONSTRAINT fk_id_oper FOREIGN KEY(id_oper)REFERENCES operaciones(id_op),
 CONSTRAINT fk_id_revn FOREIGN KEY(id_revn)REFERENCES revisiones(id_rev)
 );
