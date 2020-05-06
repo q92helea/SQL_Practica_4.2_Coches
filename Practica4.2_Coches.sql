@@ -61,8 +61,9 @@ cantidad NUMBER(2)SET DEFAULT '1',
 CONSTRAINT fk_id_mat FOREIGN KEY (id_piezs)REFERENCES materiales (id_mat))
 CONSTRAINT fk_id_opr FOREIGN KEY (id_opr)REFERENCES operaciones (id_op))
 );
-
-ALTER TABLE piezasxoperacion CHECK (cantidad>=1);
+/* La tabla piezasxoperacion" me da error el error "missing right parenthesis"*/
+/* Esto está mal construido - ALTER TABLE piezasxoperacion CHECK (cantidad>=1);-*/
+                                                           
 
 CREATE TABLE revisiones(
 id_rev NUMBER(4) PRIMARY KEY,
